@@ -1,6 +1,9 @@
 import { execSync } from "node:child_process"
 import { $, sleep } from "bun"
 
+// Usage:
+// bun deepseek.ts ./13.md
+
 // 1
 // ❯ agent-browser --profile ~/.deepseek-profile open https://chat.deepseek.com/
 // 出现  ✓ DeepSeek - 探索未至之境
@@ -100,7 +103,8 @@ async function main() {
   await sleep(500)
 
   // await $`agent-browser clipboard read`;
-  await $`agent-browser clipboard read > 13.zh.md`
+  const outputFilepath = filepath.replace(/\.md$/, '.zh.md')
+  await $`agent-browser clipboard read > ${outputFilepath}`
   // [861.97ms] clipboard
   console.timeEnd("clipboard")
 }
