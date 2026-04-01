@@ -9,7 +9,7 @@ import { execSync } from "node:child_process"
 // # open https://chat.deepseek.com/ ask and click copy to clipboard, then run this script to paste the content into a file named "deepseek.txt"
 
 // console.log("textboxRef:", { textboxRef, sendBtnRef })
-console.log("process.argv:", process.argv)
+// console.log("process.argv:", process.argv)
 
 async function main() {
   const filepath = process.argv[2]
@@ -20,11 +20,11 @@ async function main() {
     return
   }
 
-  const content: string = await Bun.file(filepath).text()
+  const text: string = await Bun.file(filepath).text()
 
   console.log("filepath:", filepath)
-  console.log("content length:", content.length)
-  console.log("content:", content.slice(0, 40), "...", content.slice(-40))
+  console.log("content length:", text.length)
+  console.log("content:", text.slice(0, 40), "...", text.slice(-40))
 
   const openLog =
     await $`agent-browser --profile ~/.deepseek-profile open https://chat.deepseek.com/`.text()
@@ -55,10 +55,20 @@ async function main() {
 
   // # fill
   console.time("fill")
+  // console.log("content:", text)
   // 问题增加 "" 防止 bun 转义成 unicode 发送给 deepseek
-  const command = `agent-browser fill @${textboxRef} "${content}"`
 
-  execSync(command)
+  const escaped = text.replace(/"/g, '\\"').replace(/\n/g, "\\n")
+  // const command = `agent-browser fill @${textboxRef} "请翻译：$(cat ${filepath})"`
+  // console.log("command:", command)
+
+  // await $`agent-browser fill @${textboxRef} "请翻译，注意1.输出 markdown 格式，2. 保留图片 3. 图片的 alt 无需翻译 4. 通俗易懂，多用短句：${escaped}"`
+
+  const command = `agent-browser fill @${textboxRef} "请翻译，注意1.输出 markdown 格式，2. 保留图片 3. 图片的 alt 无需翻译 4. 通俗易懂，多用短句：${escaped}"`
+  // return
+
+  // const command = `agent-browser fill @${textboxRef} $'第一行\n第二行\n第三行'`
+  execSync(command, { stdio: "inherit" })
 
   // 使用转义后的字符串
   // await $`agent-browser fill @${textboxRef} ${escaped}`;
