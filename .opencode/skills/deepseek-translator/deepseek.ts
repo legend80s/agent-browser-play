@@ -1,5 +1,6 @@
-import { $, sleep } from "bun"
 import { execSync } from "node:child_process"
+import { $, sleep } from "bun"
+
 // 1
 // ❯ agent-browser --profile ~/.deepseek-profile open https://chat.deepseek.com/
 // 出现  ✓ DeepSeek - 探索未至之境
