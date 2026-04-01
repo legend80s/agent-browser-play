@@ -4,9 +4,9 @@ import { execSync } from "node:child_process"
 // ❯ agent-browser --profile ~/.deepseek-profile open https://chat.deepseek.com/
 // 出现  ✓ DeepSeek - 探索未至之境
 // https://chat.deepseek.com/
-// 2. bun ds.ts
+// 2. bun deepseek.ts
 
-// # open https://chat.deepseek.com/ ask and click copy to clipboard, then run this script to paste the content into a file named "ds.txt"
+// # open https://chat.deepseek.com/ ask and click copy to clipboard, then run this script to paste the content into a file named "deepseek.txt"
 
 const { textboxRef, sendBtnRef } = await getRefs()
 
@@ -14,6 +14,7 @@ console.log("textboxRef:", { textboxRef, sendBtnRef })
 
 // # fill
 console.time("fill")
+// 问题增加 "" 防止 bun 转义成 unicode 发送给 deepseek
 const command = `agent-browser fill @${textboxRef} "简单介绍嘉兴粽子"`
 
 execSync(command)
@@ -48,7 +49,7 @@ await $`agent-browser click @${copyBtnRef}`
 await sleep(500)
 
 // await $`agent-browser clipboard read`;
-await $`agent-browser clipboard read > ds.md`
+await $`agent-browser clipboard read > deepseek.md`
 // [861.97ms] clipboard
 console.timeEnd("clipboard")
 
