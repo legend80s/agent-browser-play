@@ -1,5 +1,10 @@
 import { $, sleep } from "bun"
 import { execSync } from "node:child_process"
+// 1
+// ❯ agent-browser --profile ~/.deepseek-profile open https://chat.deepseek.com/
+// 出现  ✓ DeepSeek - 探索未至之境
+// https://chat.deepseek.com/
+// 2. bun ds.ts
 
 // # open https://chat.deepseek.com/ ask and click copy to clipboard, then run this script to paste the content into a file named "ds.txt"
 
@@ -9,7 +14,7 @@ console.log("textboxRef:", { textboxRef, sendBtnRef })
 
 // # fill
 console.time("fill")
-const command = `agent-browser fill @${textboxRef} "简单介绍嘉兴红船"`
+const command = `agent-browser fill @${textboxRef} "简单介绍嘉兴粽子"`
 
 execSync(command)
 
