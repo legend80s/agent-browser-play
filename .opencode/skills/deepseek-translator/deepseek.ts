@@ -61,10 +61,9 @@ async function main() {
   const escaped = text.replace(/"/g, '\\"').replace(/\n/g, "\\n")
   // const command = `agent-browser fill @${textboxRef} "请翻译：$(cat ${filepath})"`
   // console.log("command:", command)
-
   // await $`agent-browser fill @${textboxRef} "请翻译，注意1.输出 markdown 格式，2. 保留图片 3. 图片的 alt 无需翻译 4. 通俗易懂，多用短句：${escaped}"`
 
-  const command = `agent-browser fill @${textboxRef} "请翻译，注意1.输出 markdown 格式，2. 保留图片 3. 图片的 alt 无需翻译 4. 通俗易懂，多用短句：${escaped}"`
+  const command = `agent-browser fill @${textboxRef} "请翻译，注意 1.输出 markdown 格式，2.保留图片 3.图片的 alt 无需翻译 4.通俗易懂，多用短句：${escaped}"`
   // return
 
   // const command = `agent-browser fill @${textboxRef} $'第一行\n第二行\n第三行'`
